@@ -23,6 +23,26 @@ class Facepi:
         title = input(f"輸入更改的title[{config['title']}]: ")
         if title: config['title'] = title 
         self.writeconfig(config)
+    
+    #use online image
+    def detectImageUrl(self,imageurl):
+        headers={
+            #request headers
+            'Content - Type': 'application/json',
+            'Ocp-Apim-Subscripition-key': self.readConfig()['api_key'],
+        }
+        params=urllib.parse.urlencode({
+            # request parameters
+            'returnFaceId':'true',
+            'returnFaceLandmarks': 'false',
+            'returnFaceAttributes': 'age,gender',
+            #'recognitionModel': 'recognition_04',
+            d
+            })
+
+
+            #
+        }
 
 
 if __name__=="__main__":
