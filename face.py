@@ -37,12 +37,13 @@ class Facepi:
             'returnFaceLandmarks': 'false',
             'returnFaceAttributes': 'age,gender',
             #'recognitionModel': 'recognition_04',
-            d
-            })
-
-
-            #
-        }
+            'returnRecognitionModel': 'false',
+            'detectionModel': 'detection_01',
+            'faceIdTimeToLive': '86400'
+        })
+        print('imageurl=',imageurl)
+        requestbody = '{"url": "' + imageurl + '"}'
+        
 
 
 if __name__=="__main__":
