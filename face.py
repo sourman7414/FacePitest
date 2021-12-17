@@ -1,53 +1,59 @@
-import fire , json
+import fire
+import json
+import urllib
+
 
 class Facepi:
     def readConfig(self):
         with open('Config.json', 'r', encoding='utf-8') as f:
             config = json.load(f)
             return config
-    
+
     def self(self):
         print(self.readConfig())
         config = self.readConfig()
         print(config['api_key'])
-    
-    def writeconfig(self,config):
-        with open('Config.json','w', encoding='utf-8') as f:
-            json.dump(config,f)
+
+    def writeconfig(self, config):
+        with open('Config.json', 'w', encoding='utf-8') as f:
+            json.dump(config, f)
 
     def setconfig(self):
         config = self.readConfig()
         print("不更改config請按enter鍵")
         api_key = input(f"輸入更改的api_key[{config['api_key']}]: ")
-        if api_key:  config['api_key'] = api_key
+        if api_key:
+            config['api_key'] = api_key
         title = input(f"輸入更改的title[{config['title']}]: ")
-        if title: config['title'] = title 
+        if title:
+            config['title'] = title
         self.writeconfig(config)
-    
-    #use online image
-    def detectImageUrl(self,imageurl):
-        headers={
-            #request headers
+
+    # use online image
+    def detectImageUrl(self, imageurl):
+        headers = {
+            # request headers
             'Content - Type': 'application/json',
             'Ocp-Apim-Subscripition-key': self.readConfig()['api_key'],
         }
-        params=urllib.parse.urlencode({
+        params = urllib.parse.urlencode({
             # request parameters
-            'returnFaceId':'true',
+            'returnFaceId': 'true',
             'returnFaceLandmarks': 'false',
             'returnFaceAttributes': 'age,gender',
-            #'recognitionModel': 'recognition_04',
+            # 'recognitionModel': 'recognition_04',
             'returnRecognitionModel': 'false',
             'detectionModel': 'detection_01',
             'faceIdTimeToLive': '86400'
         })
-        print('imageurl=',imageurl)
+        print('imageurl=', imageurl)
         requestbody = '{"url": "' + imageurl + '"}'
-        
+        try:
+            conn = https.client.HTTPSConnection(self.readConfig()['host'])
+            conn.request("POST", "/face/v1.0/detect?%s" %
+                         params, requestbody, headers)
+            response = conn.getresponse()
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     fire.Fire(Facepi)
-
-
-
